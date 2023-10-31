@@ -1,6 +1,6 @@
 # ByteMarket || GadgetGalaxy
 
-This project has been created by =>
+This app created by =>
 
 [Garren Pho](https://github.com/PhoReal14),
 [Monique Avila](https://github.com/Moniii333),
