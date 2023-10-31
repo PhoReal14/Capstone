@@ -12,7 +12,7 @@ export default function Products() {
     const getProducts = async () => {
       try{
         const response = await getAllProducts()
-        // console.log('all products?:', response)
+        // console.log('all products:', response)
         if(response) {
           setProducts(response)
         }
@@ -49,13 +49,13 @@ export default function Products() {
   return(
     <div  className='app'>
       <div id="component">
-      <h1>View a list of all our products here!</h1>
+      <h1>View our products!</h1>
       <div id="products">
         {products.map((item) => (
           <div key={item.id} className="single-item">
             <p>{item.title}</p>
             <img id="product-img" src={item.image}></img>
-            <p><strong>Price:</strong> ${item.price}</p>
+            <p><strong>Price:</strong> <span id="dollarSign">${item.price}</span></p>
             <button data-id='data-item-id' onClick={() => {
               setToggleDetails((prev) => (prev === item.id ? null : item.id))
             }}>{toggleDetails ? 'View Less' : 'View More'}</button>
