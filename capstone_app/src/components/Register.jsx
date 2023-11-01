@@ -3,7 +3,8 @@ import { useNavigate, Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import React, { useState } from 'react';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 
 export default function Register() {
 // determine if want to add ability to let user add their address here but maybe only doing it in the homepage so api gets called there for filling out that field to use throughout the app or where user can edit an existing address.
@@ -12,6 +13,7 @@ export default function Register() {
 const [newUsername, setNewUsername] = useState('')
 const [newPassword, setNewPassword] = useState('')
 const [newEmail, setNewEmail] = useState('')
+const [samePassword, setSamePassword] = useState('')
 const navigation = useNavigate()
 
 // functions useForm will use to handle form validation
@@ -71,7 +73,7 @@ const registerNewUser = async (data) => {
           {errors.newEmail && <p>{errors.newEmail?.message}</p>}
           <br></br><br></br>
           <label htmlFor='newPassword'>Password:
-            <input {...register('newPassword', {
+            <input type='password' {...register('newPassword', {
               required: 'Password is required',
               minLength: {
                 value: 8,
@@ -81,16 +83,18 @@ const registerNewUser = async (data) => {
           </label>
           {errors.newPassword && <p>{errors.newPassword?.message}</p>}
           <br></br><br></br>
-          <label htmlFor='repeatPassword'>ReEnter Password:
-            <input {...register('repeatPassword', {
+          <label htmlFor='samePassword'>ReEnter Password:
+            <input type='password' {...register('samePassword', {
               validate: (value) => value === watch('newPassword') || 'Passwords must match', minLength: {
                 value: 8,
                 message: 'Minimum not yet met (8)'
-              }})} placeholder="repeat password" id='repeatPassword'/>
+              }})} placeholder="repeat password" id='samePassword'/>
           </label>
-          {errors.repeatPassword && <p>{errors.repeatPassword?.message}</p>}
+          {errors.samePassword && <p>{errors.samePassword?.message}</p>}
           <br></br><br></br>
-          <button type='submit'>Create Account</button>
+          {newUsername && newPassword && newEmail.length > 0 ? (
+            <button type='submit'>Create Account</button>
+          ): <p><FontAwesomeIcon icon={faTriangleExclamation} style={{color: '#fe5858'}} /> Please fill out registration form or</p>}
         </form>
       </div>
       <span>

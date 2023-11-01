@@ -2,18 +2,41 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  --mainLightTheme: #e1dcd9;
+  --secondaryLight: #8f8681;
+  --lightH1: #a67f78;
+  --lightText: #32435f;
+  
+  --darkText: #cee3ec;
+  --darkH1: #a6c2ce;
+  --darkMainTheme: #8f8681;
+  --darkSecondTheme: #e1dcd9;
 
+  --gold: #ffcc71;
+  --button: #8bb6d0;
+  
 }
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #d5c5e9;
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: #fddcef;
 }
-
+#light a {
+  font-weight: 500;
+  color: #a892c4;
+  text-decoration: inherit;
+}
+#light a:hover {
+  color: #c33f8c;
+}
+input:focus {
+  outline: none;
+  border-color: var(--gold);
+}
 body {
   margin: 0;
   display: flex;
@@ -34,33 +57,50 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--button);
   cursor: pointer;
   transition: border-color 0.25s;
-  color: aqua;
+  margin: 8px;
+  color: var(--gold);
+}
+button:active {
+  background-color: #c2e3f4;
+  color: black;
+  box-shadow: 0 5px #666;
+  transform: translateY(.5px);
 }
 button:hover {
-  border-color: #646cff;
+  border-color: var(--gold);
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+#light button {
+  background-color: #ba958f;
+  color: aliceblue;
 }
 
+
 #switch {
-  position: absolute;
-  top: 5rem;
-  right: 0;
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+}
+#dollarSign {
+  color: #85bb65;
 }
 
 /* .app is whole container/styles for containers */
 #dark .app {
-  background-color: #4d4c4c;
-  color: aliceblue;
+  background-color: var(--darkMainTheme);
+  color: var(--darkText);
 }
 #light .app {
-  background-color: aliceblue;
-  color: black;
+  background-color: var(--mainLightTheme);
+  color: var(--lightParagraphs);
+}
+#light h1 {
+  color: var(--lightH1);
+}
+#dark h1 {
+  color: var(--darkH1);
 }
 .app {
   text-align: center;
@@ -68,9 +108,23 @@ button:focus-visible {
   position: absolute;
   height: 100%;
   width: 100%;
+  overflow-y: auto;
 }
 #component {
-  margin-top: 7rem;
+  margin-top: 15rem;
+}
+#navbar {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+  background-color: var(--darkSecondTheme);
+}
+#light #navbar {
+  background-color: var(--secondaryLight);
+}
+#light #navbar .search_box > input {
+  border-color: azure;
 }
 
 /* product page */
@@ -82,4 +136,19 @@ button:focus-visible {
 #product-img {
   width: 250px;
   height: 250px;
+  border-radius: 25px;
+  margin: 0 10px;
+}
+#products {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+/* about page */
+#aboutSection {
+  width: 75%;
+  margin: 1rem auto;
+  padding-bottom: 10px;
+  overflow-y: auto;
 }
