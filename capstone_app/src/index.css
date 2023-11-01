@@ -7,7 +7,7 @@
   --lightH1: #a67f78;
   --lightText: #32435f;
   
-  --darkText: #d7d9cb;
+  --darkText: #cee3ec;
   --darkH1: #a6c2ce;
   --darkMainTheme: #8f8681;
   --darkSecondTheme: #e1dcd9;
@@ -77,10 +77,11 @@ button:hover {
   color: aliceblue;
 }
 
+
 #switch {
   position: fixed;
-  top: 5rem;
-  right: 1rem;
+  bottom: 1rem;
+  left: 1rem;
 }
 #dollarSign {
   color: #85bb65;
@@ -110,7 +111,20 @@ button:hover {
   overflow-y: auto;
 }
 #component {
-  margin-top: 7rem;
+  margin-top: 15rem;
+}
+#navbar {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+  background-color: var(--darkSecondTheme);
+}
+#light #navbar {
+  background-color: var(--secondaryLight);
+}
+#light #navbar .search_box > input {
+  border-color: azure;
 }
 
 /* product page */
@@ -127,6 +141,14 @@ button:hover {
 }
 #products {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 2px;
+}
+
+/* about page */
+#aboutSection {
+  width: 75%;
+  margin: 1rem auto;
+  padding-bottom: 10px;
+  overflow-y: auto;
 }

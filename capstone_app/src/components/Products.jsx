@@ -7,6 +7,8 @@ import StarRating from "./StarRating"
 export default function Products() {
   const [products, setProducts] = useState([])
   const [productRating, setProductRating] = useState([])
+  const [electronics, setElectronics] = useState([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const getProducts = async () => {
@@ -15,14 +17,28 @@ export default function Products() {
         // console.log('all products:', response)
         if(response) {
           setProducts(response)
+          setLoading(false)
         }
         
       }catch(error){
         console.warn('Error on front end:', error)
       }
     }
-    getProducts()
-  }, [])
+    if(products.length === 0) {
+      getProducts()
+    }
+  }, [products])
+
+ 
+  useEffect(() => {
+    if(products.length > 0) {
+      const items = products.filter((x) => {
+        return x.category == 'electronics'
+      })
+      // console.log(items)
+      setElectronics(items)
+    }
+  }, [products])
 
   // useEffect(() => {
   //   const getProductRatings = async () => {
@@ -51,7 +67,7 @@ export default function Products() {
       <div id="component">
       <h1>View our products!</h1>
       <div id="products">
-        {products.map((item) => (
+        {electronics.map((item) => (
           <div key={item.id} className="single-item">
             <p>{item.title}</p>
             <img id="product-img" src={item.image}></img>
