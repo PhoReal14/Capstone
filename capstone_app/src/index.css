@@ -80,8 +80,9 @@ button:hover {
 
 #switch {
   position: fixed;
-  bottom: 1rem;
-  left: 1rem;
+  top: .7rem;
+  right: 5rem;
+  z-index: 3;
 }
 #dollarSign {
   color: #85bb65;

@@ -1,6 +1,5 @@
 import axios from 'axios'
-const BASE_URL = ''
-// currently using mock data to pull for products
+const BASE_URL = 'http://localhost:4000/api'
 
 // register
 const RegisterANewUser = async ({ username, password }) => {
@@ -15,7 +14,7 @@ const RegisterANewUser = async ({ username, password }) => {
 
 const getAllProducts = async () => {
   try{
-    const res = await axios.get('https://fakestoreapi.com/products')
+    const res = await axios.get(`${BASE_URL}/products`)
     if(res) {
       // console.log(res)
       return res.data
