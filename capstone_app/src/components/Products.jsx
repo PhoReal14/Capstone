@@ -14,7 +14,7 @@ export default function Products() {
     const getProducts = async () => {
       try{
         const response = await getAllProducts()
-        // console.log('all products:', response)
+        console.log('all products:', response)
         if(response) {
           setProducts(response)
           setLoading(false)
@@ -30,15 +30,15 @@ export default function Products() {
   }, [products])
 
  
-  useEffect(() => {
-    if(products.length > 0) {
-      const items = products.filter((x) => {
-        return x.category == 'electronics'
-      })
-      // console.log(items)
-      setElectronics(items)
-    }
-  }, [products])
+  // useEffect(() => {
+  //   if(products.length > 0) {
+  //     const items = products.filter((x) => {
+  //       return x.category == 'electronics'
+  //     })
+  //     // console.log(items)
+  //     setElectronics(items)
+  //   }
+  // }, [products])
 
   // useEffect(() => {
   //   const getProductRatings = async () => {
@@ -67,10 +67,10 @@ export default function Products() {
       <div id="component">
       <h1>View our products!</h1>
       <div id="products">
-        {electronics.map((item) => (
+        {products.map((item) => (
           <div key={item.id} className="single-item">
-            <p>{item.title}</p>
-            <img id="product-img" src={item.image}></img>
+            <p>{item.name}</p>
+            <img id="product-img" src={item.imgurl}></img>
             <p><strong>Price:</strong> <span id="dollarSign">${item.price}</span></p>
             <button data-id='data-item-id' onClick={() => {
               setToggleDetails((prev) => (prev === item.id ? null : item.id))
@@ -78,7 +78,6 @@ export default function Products() {
             {toggleDetails === item.id ? (
               <>
                 <p><strong>Description:</strong>{item.description}</p>
-                <p><strong>Product Rating: </strong>{item.rating.rate}</p>
                 <span>
                   <button onClick={addToCart}>Add to cart</button>
                 </span>

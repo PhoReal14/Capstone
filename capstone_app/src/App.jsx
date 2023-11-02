@@ -44,6 +44,7 @@ function App() {
           <Route path='/about' element={<About />} />
           <Route path='/addproduct' element={<AddProducts />} />
           <Route path='/' element={<Products />} />
+          <Route path='*' element={<Products />} />
         </Routes>
         <div id='switch'>
         <label> {theme === 'light' ? 'Light Mode' : 'Dark Mode'}
