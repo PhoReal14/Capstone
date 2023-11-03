@@ -120,6 +120,7 @@ button:hover {
   width: 100%;
   z-index: 2;
   background-color: var(--darkSecondTheme);
+  height: 10rem;
 }
 #light #navbar {
   background-color: var(--secondaryLight);
@@ -152,4 +153,17 @@ button:hover {
   margin: 1rem auto;
   padding-bottom: 10px;
   overflow-y: auto;
+}
+
+/* homepage */
+#menu {
+  background-color: aliceblue;
+  opacity: .7;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+}
+#menu > a {
+  color: rgb(218, 79, 246);
 }

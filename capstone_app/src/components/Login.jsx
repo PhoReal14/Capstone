@@ -3,18 +3,33 @@ import { useForm } from 'react-hook-form';
 import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import AuthContext from '../contextAuth/AuthProvider';
+import { userLogin } from '../apiCalls/utils';
 
 export default function Login () {
-  const { setAuth } = useContext(AuthContext)
   const [username, setUsername] = useState('')
   const [pwd, setPwd] = useState('')
   const navigation = useNavigate()
+  // need to see if login works, remember to implement authorization routes and customize profile page based on if user has already added their shipping info, and if user has 'applied' to be a seller then make the addproduct component available to them via their homepage
 
   const {register, handleSubmit, formState: { errors }} = useForm()
 
-  const handleLogin = async () => {
-
+  const handleLogin = async (data) => {
+    try{
+      const login = await userLogin({
+        username: data.username,
+        password: data.pwd
+      })
+      if(login){
+        toast.success('You\'re logged in!')
+        sessionStorage.setItem('username', data.username)
+        setTimeout(() => {
+          navigation('/home')
+        }, 1400);
+      }
+    } catch(error) {
+      console.warn('Login failed:', error)
+      toast.warn('Username or password is incorrect.')
+    }
   }
 
   return(

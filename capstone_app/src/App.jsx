@@ -2,7 +2,6 @@ import { useState, createContext, useEffect } from 'react'
 import { Routes, Route} from 'react-router-dom'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './App.css'
 import './comp/Navbar.css'
 import ReactSwitch from "react-switch";
 import Register from './components/Register';
@@ -13,6 +12,7 @@ import Navbar from './comp/Navbar';
 import Contact from './components/Contact';
 import Home from './components/Home';
 import About from './components/About';
+import Logout from './components/Logout';
 
 export const ThemeContext = createContext(null)
 
@@ -30,6 +30,22 @@ function App() {
     sessionStorage.setItem('theme', theme)
   }, [theme])
 
+  // authenticate routes
+  const [isAuth, setIsAuth] = useState(false)
+  
+  useEffect(() => {
+    const setAuthUser = async () => {
+      const username = sessionStorage.getItem('username')
+      console.log(username)
+      if(username === null) {
+        setIsAuth(false)
+      } else {
+        setIsAuth(true)
+      }
+    }
+    setAuthUser()
+  }, [])
+
   return (
     <ThemeContext.Provider value={{ theme, themeToggle}}>
       <div id={ theme } >
@@ -38,9 +54,10 @@ function App() {
         </div>
         <Routes>
           <Route path='/login' element={<Login />} />
+          <Route path='/logout' element={<Logout />} />
           <Route path='/register' element={<Register />} />
           <Route path='/contact' element={<Contact />} />
-          <Route path='/home' element={<Home />} />
+          <Route path='/home' element={<Home isAuth={isAuth} />} />
           <Route path='/about' element={<About />} />
           <Route path='/addproduct' element={<AddProducts />} />
           <Route path='/' element={<Products />} />
