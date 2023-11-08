@@ -25,10 +25,6 @@ const Navbar = () => {
         <div className='logo'>
           <img src='images/logo.png' alt='logo'></img>
         </div>
-        <div className='search_box'>
-          <input readOnly type='text' value='' placeholder='search'></input>
-          <button><AiOutlineSearch/></button>
-        </div>
         {
           isAuthenticated ?
           // if user is logged in then logout button
