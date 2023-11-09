@@ -39,11 +39,11 @@ export default function Contact() {
       <div>
         Rachel Watkins
         <br></br>
-        <a href='emailto:'><FontAwesomeIcon icon={faEnvelope} style={{color: "#a7c6fb",}} /> Email me</a>
+        <a href='emailto:rachelwatkinsokc@gmail.com'><FontAwesomeIcon icon={faEnvelope} style={{color: "#a7c6fb",}} /> Email me</a>
         <br></br>
-        <a href='https://github.com/'><FontAwesomeIcon icon={faGithub} /> Find me on GitHub</a>
+        <a href='https://github.com/rachel-watkins'><FontAwesomeIcon icon={faGithub} /> Find me on GitHub</a>
         <br></br>
-        <a href='www.linkedin.com/'><FontAwesomeIcon icon={faLinkedin} /> Follow me on LinkedIn</a>
+        <a href='www.linkedin.com/rachelwatkins'><FontAwesomeIcon icon={faLinkedin} /> Follow me on LinkedIn</a>
       </div>
     </div>
     </div>
