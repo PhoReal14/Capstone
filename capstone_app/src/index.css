@@ -120,6 +120,7 @@ button:hover {
   width: 100%;
   z-index: 2;
   background-color: var(--darkSecondTheme);
+  height: 10rem;
 }
 #light #navbar {
   background-color: var(--secondaryLight);
@@ -152,6 +153,48 @@ button:hover {
   margin: 1rem auto;
   padding-bottom: 10px;
   overflow-y: auto;
+}
+
+/* homepage */
+#menu {
+  background-color: aliceblue;
+  opacity: .65;
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  border-radius: 0 25px 35px 0;
+}
+#menu > a {
+  color: rgb(218, 79, 246);
+  margin-top: .5rem;
+}
+#spin {
+  animation: spin 2s linear infinite;
+  font-size: 30px;
+  margin-top: 5rem;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+#cancelBtn {
+  border-color: crimson;
+  background-color: rgb(246, 168, 168);
+  color: #000;
+}
+#light #cancelBtn {
+  border-color: crimson;
+  background-color: rgb(246, 168, 168);
+  color: #000;
+}
+
+/* logout */
+#logoutContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 50%;
 }
 
 #search {

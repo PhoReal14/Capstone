@@ -97,6 +97,24 @@
     display: flex;
     background: #232323;
     justify-content: space-between;
+    height: 4rem;
+}
+@media only screen and (max-width: 749px){
+	.header .last_header {
+        margin-top: -22px;
+    }
+    .header .mid_header .user {
+        margin-right: -20px;
+    }
+    .header .mid_header .logo img {
+        width: 150px;
+        margin-top: -10px;
+    }
+}
+@media only screen and (max-width: 670px){
+	.header .last_header .Offers {
+        display: none;
+    }
 }
 .header .last_header .user_profile
 {

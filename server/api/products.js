@@ -7,7 +7,6 @@ const { requireUser, requiredNotSent } = require('./utils')
 
 // GET /api/products
 router.get('/', async (req, res, next) => {
-  console.log('hello')
   try {
     const products = await getAllProducts();
     res.send(products);

@@ -5,15 +5,12 @@ import 'react-toastify/dist/ReactToastify.css'
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { RegisterANewUser } from '../apiCalls/utils';
 
 export default function Register() {
-// determine if want to add ability to let user add their address here but maybe only doing it in the homepage so api gets called there for filling out that field to use throughout the app or where user can edit an existing address.
-// maybe add where user can add card info (fake of course)
-
 const [newUsername, setNewUsername] = useState('')
 const [newPassword, setNewPassword] = useState('')
 const [newEmail, setNewEmail] = useState('')
-const [samePassword, setSamePassword] = useState('')
 const navigation = useNavigate()
 
 // functions useForm will use to handle form validation
@@ -22,10 +19,8 @@ const { register, handleSubmit, watch, formState: { errors } } = useForm({
 })
 
 const registerNewUser = async (data) => {
-
-  // need to change the function to call the api
   try{
-    const response = await newUserFunc({
+    const response = await RegisterANewUser({
       username: data.newUsername,
       password: data.newPassword,
       email: data.newEmail

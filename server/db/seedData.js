@@ -1,4 +1,4 @@
-const { createUser, createProduct,} = require('.');
+const { createUser, createProduct, addUserShippingInfo } = require('.');
 const client = require('./client');
 
 async function dropTables() {
@@ -6,8 +6,9 @@ async function dropTables() {
   // drop all tables, in the correct order
   try {
     await  client.query(`
-    DROP TABLE IF EXISTS users;
+    DROP TABLE IF EXISTS shipping_information;
     DROP TABLE IF EXISTS products;
+    DROP TABLE IF EXISTS users;
   `)
   } catch (error) {
     throw error; 
@@ -23,7 +24,18 @@ async function createTables() {
       CREATE TABLE users(
         id  SERIAL PRIMARY KEY, 
         username VARCHAR(255) UNIQUE NOT NULL, 
-        password VARCHAR(255) NOT NULL
+        password VARCHAR(255) NOT NULL,
+        email VARCHAR(320) UNIQUE NOT NULL
+      );
+    `)
+
+    await client.query(`
+      CREATE TABLE shipping_information (
+        id SERIAL PRIMARY KEY,
+        user_id INT REFERENCES users(id),
+        first_name VARCHAR(255) NOT NULL,
+        last_name VARCHAR(255) NOT NULL,
+        address VARCHAR
       );
     `)
 
@@ -55,10 +67,11 @@ async function createInitialUsers() {
   try {
 
     const usersToCreate = [
-      { username: 'monique', password: 'Moniii333' },
-      { username: 'garren', password: 'phoreal14' },
-      { username: 'jonathan', password: 'jnett93' },
-      { username: 'rachel', password: 'rachel-watkins' },
+      { username: 'Moniii333', password: 'Monique3', email: 'moniii@ByteMarket.com' },
+      { username: 'phoreal14', password: 'Garren7', email: 'phoreal@ByteMarket.com' },
+      { username: 'jnett93', password: 'Jonathan9', email: 'jnett@ByteMarket.com' },
+      { username: 'rachel', password: 'rachel-watkins', email: 'rachel-watkins@ByteMarket.com' },
+      { username: 'JohnDoe1', password: 'Testing1', email: 'DoeEyedJohn@example.com' },
     ]
     const users = await Promise.all(usersToCreate.map(createUser));
 
@@ -68,6 +81,18 @@ async function createInitialUsers() {
   } catch (error) {
     console.error('Error creating users!');
     throw error;
+  }
+}
+async function createShippingInfo() {
+  try{
+    const shipmentInfo = [
+      { user_id: 4, first_name: 'John', last_name: 'Doe', address: '42 Wallaby Way, Sydney'},
+    ]
+    const info = await Promise.all(shipmentInfo.map(info => addUserShippingInfo(info.user_id, info)));
+    console.log('Shipment info created:', info)
+    console.log('Finished creating shipment info.')
+  } catch(error) {
+    console.error('Error creating shipment info', error)
   }
 }
 async function createProducts() {
@@ -106,6 +131,7 @@ async function rebuildDB() {
     await dropTables();
     await createTables();
     await createInitialUsers();
+    await createShippingInfo();
     await createProducts();
   } catch (error) {
     console.log('Error during rebuildDB')
