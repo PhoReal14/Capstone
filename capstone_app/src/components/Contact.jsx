@@ -30,11 +30,11 @@ export default function Contact() {
       <div>
         Jonathan Netterstrom
         <br></br>
-        <a href='emailto:'><FontAwesomeIcon icon={faEnvelope} style={{color: "#a7c6fb",}} /> Email me</a>
+        <a href='emailto:Netterstrom2000@gmail.com'><FontAwesomeIcon icon={faEnvelope} style={{color: "#a7c6fb",}} /> Email me</a>
         <br></br>
-        <a href='https://github.com/'><FontAwesomeIcon icon={faGithub} /> Find me on GitHub</a>
+        <a href='https://github.com/jnett93'><FontAwesomeIcon icon={faGithub} /> Find me on GitHub</a>
         <br></br>
-        <a href='www.linkedin.com/'><FontAwesomeIcon icon={faLinkedin} /> Follow me on LinkedIn</a>
+        <a href='www.linkedin.com/in/jonathan-netterstrom/'><FontAwesomeIcon icon={faLinkedin} /> Follow me on LinkedIn</a>
       </div>
       <div>
         Rachel Watkins

@@ -14,6 +14,7 @@ import About from './components/About';
 import Logout from './components/Logout';
 import UserInfo from './components/UserInfo';
 import { userInfo } from './apiCalls/utils';
+import Footer from './components/Footer';
 
 export const ThemeContext = createContext(null)
 
@@ -84,6 +85,9 @@ function App() {
         <label> {theme === 'light' ? 'Light Mode' : 'Dark Mode'}
           <ReactSwitch onChange={themeToggle} checked={theme === 'dark'}/>
         </label>
+      </div>
+      <div id='footer-div'>
+        <Footer />
       </div>
       </div>
       <ToastContainer theme='dark' position='bottom-center' autoClose={1500} pauseOnFocusLoss={false} />
