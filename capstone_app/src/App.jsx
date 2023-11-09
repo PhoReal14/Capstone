@@ -7,12 +7,13 @@ import ReactSwitch from "react-switch";
 import Register from './components/Register';
 import Login from './components/Login';
 import Products from './components/Products';
-import AddProducts from './components/AddProducts';
 import Navbar from './comp/Navbar';
 import Contact from './components/Contact';
 import Home from './components/Home';
 import About from './components/About';
 import Logout from './components/Logout';
+import UserInfo from './components/UserInfo';
+import { userInfo } from './apiCalls/utils';
 
 export const ThemeContext = createContext(null)
 
@@ -32,11 +33,10 @@ function App() {
 
   // authenticate routes
   const [isAuth, setIsAuth] = useState(false)
+  const username = sessionStorage.getItem('username')
   
   useEffect(() => {
     const setAuthUser = async () => {
-      const username = sessionStorage.getItem('username')
-      console.log(username)
       if(username === null) {
         setIsAuth(false)
       } else {
@@ -46,20 +46,37 @@ function App() {
     setAuthUser()
   }, [])
 
+  // get users info id
+  const [info, setInfo] = useState([])
+  // save all user data
+  const [allInfo, setAllInfo] = useState([])
+  useEffect(() => {
+    const getInfo = async () => {
+      const res = await userInfo()
+      if(res){
+        setInfo(res.data)
+        setAllInfo(res)
+      } else {
+        console.warn('Unable to get users info')
+      }
+    }
+    getInfo()
+  }, [])
+
   return (
     <ThemeContext.Provider value={{ theme, themeToggle}}>
       <div id={ theme } >
         <div id='navbar'>
-          <Navbar />
+          <Navbar isAuth={isAuth} />
         </div>
         <Routes>
           <Route path='/login' element={<Login />} />
           <Route path='/logout' element={<Logout />} />
           <Route path='/register' element={<Register />} />
           <Route path='/contact' element={<Contact />} />
-          <Route path='/home' element={<Home isAuth={isAuth} />} />
+          <Route path='/home' element={<Home info={info} isAuth={isAuth} username={username} />} />
+          <Route path='/userinfo' element={<UserInfo info={info} />} />
           <Route path='/about' element={<About />} />
-          <Route path='/addproduct' element={<AddProducts />} />
           <Route path='/' element={<Products />} />
           <Route path='*' element={<Products />} />
         </Routes>
@@ -69,7 +86,7 @@ function App() {
         </label>
       </div>
       </div>
-      <ToastContainer theme='dark' position='bottom-center' autoClose={2000} pauseOnFocusLoss={false} />
+      <ToastContainer theme='dark' position='bottom-center' autoClose={1500} pauseOnFocusLoss={false} />
     </ThemeContext.Provider>
   )
 }

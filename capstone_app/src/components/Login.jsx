@@ -9,7 +9,6 @@ export default function Login () {
   const [username, setUsername] = useState('')
   const [pwd, setPwd] = useState('')
   const navigation = useNavigate()
-  // need to see if login works, remember to implement authorization routes and customize profile page based on if user has already added their shipping info, and if user has 'applied' to be a seller then make the addproduct component available to them via their homepage
 
   const {register, handleSubmit, formState: { errors }} = useForm()
 
@@ -20,10 +19,12 @@ export default function Login () {
         password: data.pwd
       })
       if(login){
-        toast.success('You\'re logged in!')
+        toast.success(`Glad to have you back ${data.username}!`)
         sessionStorage.setItem('username', data.username)
+        sessionStorage.setItem('token', login.token)
         setTimeout(() => {
           navigation('/home')
+          window.location.reload(false)
         }, 1400);
       }
     } catch(error) {
@@ -35,7 +36,8 @@ export default function Login () {
   return(
     <div  className='app'>
       <div id='component'>
-      <h1>Log in below</h1>
+      <h1>ByteMarket</h1>
+      <h3>Log in below</h3>
       <div id='login-form'>
         <form onSubmit={handleSubmit(handleLogin)}>
           <label htmlFor='username'>Username:
@@ -52,7 +54,7 @@ export default function Login () {
           </label>
           {errors.pwd && <p>{errors.pwd?.message}</p>}
           <br></br><br></br>
-          <button type='submit'>Login</button>
+          <button>Login</button>
         </form>
         <span id='registerLink'>
           <Link to='/register'>Not registered? Go here to create an account</Link>

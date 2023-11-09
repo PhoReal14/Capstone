@@ -19,8 +19,6 @@ const { register, handleSubmit, watch, formState: { errors } } = useForm({
 })
 
 const registerNewUser = async (data) => {
-console.log('Passed data:', data)
-  // need to change the function to call the api
   try{
     const response = await RegisterANewUser({
       username: data.newUsername,

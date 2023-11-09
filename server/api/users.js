@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-const { createUser, getUserByUsername, getUser, getUserById, addUserShippingInfo } = require('../db');
+const { createUser, getUserByUsername, getUser, getUserById, addUserShippingInfo, selectUserShipmentInfo } = require('../db');
 const { requireUser } = require('./utils');
 const { JWT_SECRET = 'neverTell' } = process.env;
 const validator = require('validator');
@@ -27,7 +27,8 @@ router.post('/login', async (req, res, next) => {
         message: 'Username or password is incorrect',
       })
     } else {
-      const token = jwt.sign({id: user.id, username: user.username}, JWT_SECRET, { expiresIn: '1w' });
+      const userId = user.id
+      const token = jwt.sign({id: userId, username: user.username}, JWT_SECRET, { expiresIn: '1w' });
       res.send({ user, message: "you're logged in!", token });
     }
   } catch (error) {
@@ -80,10 +81,10 @@ router.post('/register', async (req, res, next) => {
 })
 
 // POST /api/users/me
-router.patch('/me', requireUser, async (req, res, next) => {
+router.post('/me', requireUser, async (req, res, next) => {
   try{
-    const userId = await getUserById(req.id)
-    if(!userId) {
+    const user = await getUserById(req.user.id)
+    if(!user) {
       res.status(401);
       next({
         name: 'InvalidUserId',
@@ -100,7 +101,7 @@ router.patch('/me', requireUser, async (req, res, next) => {
         })
       } else {
         // update the users shipment info
-        const updatedShipmentInfo = await addUserShippingInfo(userId, first_name, last_name, address)
+        const updatedShipmentInfo = await addUserShippingInfo(user.id,{ first_name, last_name, address })
         res.status(200).send({ message: 'Shipping information has been added!', updatedShipmentInfo})
       }
     }
@@ -112,7 +113,17 @@ router.patch('/me', requireUser, async (req, res, next) => {
 // GET /api/users/me
 router.get('/me', requireUser, async (req, res, next) => {
   try {
-    res.send(req.user);
+    const userId = req.user.id
+    const userData = req.user
+
+    // get users shipment info if any
+    const shippingInfo = await selectUserShipmentInfo({ user_id: userId})
+
+    if(!shippingInfo) {
+      res.send(userData)
+    } else {
+      res.send({ user: userData, userShipmentInfo: shippingInfo})
+    }
   } catch (error) {
     next(error)
   }

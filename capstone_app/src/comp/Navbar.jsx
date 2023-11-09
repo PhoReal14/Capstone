@@ -8,7 +8,7 @@ import {Link} from 'react-router-dom';
 import './Navbar.css';
 
 
-const Navbar = () => {
+const Navbar = ({ isAuth }) => {
   const { loginWithRedirect, logout, user, isAuthenticated  } = useAuth0();
   return(
     <>

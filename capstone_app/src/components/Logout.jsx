@@ -15,15 +15,17 @@ export default function Logout() {
     setTimeout(() => {
       navigation('/')
       window.location.reload(false)
-    }, 1000)
+    }, 1500)
   }
 
   return(
-    <div id="logoutContainer">
+    <div className="app">
+      <div id="component">
+      <div id="logoutContainer">
       {savedUsername ? (
         <span>
-        <p>Sure you want to log out?</p>
-        <button onClick={loggingOut} id="logout-btn">Logout</button>
+        <h2>Sure you want to log out?</h2>
+        <button onClick={loggingOut}>Logout</button>
       </span>
       ) : (
         <>
@@ -31,6 +33,8 @@ export default function Logout() {
           <span id="logoutLink"><Link to='/'>Click here to sign in!</Link></span>
         </>
       )}
+    </div>
+      </div>
     </div>
   )
 }
