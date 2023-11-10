@@ -79,4 +79,20 @@ const getAllProducts = async () => {
   }
 }
 
-export { RegisterANewUser, getAllProducts, userLogin, userInfo, updateShipmentInfo }
+const createProduct = async (productData) => {
+  try {
+    const response = await axios.post(`${BASE_URL}/products`, productData, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+
+    if (response) {
+      return response.data;
+    }
+  } catch (error) {
+    console.error('Failed to create product:', error);
+  }
+};
+
+export { RegisterANewUser, getAllProducts, userLogin, userInfo, updateShipmentInfo, createProduct}

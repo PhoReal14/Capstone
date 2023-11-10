@@ -4,9 +4,11 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import StarRating from "./StarRating"
 import { AiOutlineSearch } from "react-icons/ai"
+import AddProduct from "./AddProduct"
 
 export default function Products() {
   const [products, setProducts] = useState([])
+  const [toggleAddProduct, setToggleAddProduct] = useState(false);
   const [productRating, setProductRating] = useState([])
   const [electronics, setElectronics] = useState([])
   const [loading, setLoading] = useState(true)
@@ -71,8 +73,6 @@ export default function Products() {
   : products;
   
 
-
-
   return(
     <div  className='app'>
       <div id="component">
@@ -84,6 +84,10 @@ export default function Products() {
           placeholder="Search Products" 
           onChange={(e) => setSearchParams(e.target.value.toLowerCase())}/>
       </div>
+      <div id="addProduct">
+        <button onClick={() => setToggleAddProduct(!toggleAddProduct)}>Add Product</button>
+      </div>
+      {toggleAddProduct && <AddProduct />} {/* Render AddProduct conditionally */}
       <div id="products">
         {productsToDisplay.map((item) => (
           <div key={item.id} className="single-item">
@@ -99,6 +103,8 @@ export default function Products() {
                 <p><strong>Description:</strong>{item.description}</p>
                 <span>
                   <button onClick={addToCart}>Add to cart</button>
+                  <button>Edit Product</button>
+                  <button>Delete Product</button>
                 </span>
               </>
             ):null}

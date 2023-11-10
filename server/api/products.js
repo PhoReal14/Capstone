@@ -15,7 +15,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-// POST /api/products
+// POST /api/products/add
 router.post('/', requireUser, requiredNotSent({requiredParams: ['name', 'description', 'price', 'imgUrl', 'category']}), async (req, res, next) => {
   try {
     const validCategories = ['tablet', 'phone', 'monitor', 'setup', 'headphones', 'charger']
