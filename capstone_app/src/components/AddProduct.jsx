@@ -46,7 +46,7 @@ export default function AddProduct() {
 
   return (
     <div className="add-product-container">
-      <h2>Add New Product</h2>
+      <h2>Add New Product Form</h2>
       <form onSubmit={handleSubmit}>
         <label>
           Name:
@@ -58,15 +58,18 @@ export default function AddProduct() {
             required
           />
         </label>
+        <p></p>
         <label>
           Description:
-          <textarea
+          <input
+            type="text"
             name="description"
             value={newProduct.description}
             onChange={handleChange}
             required
           />
         </label>
+        <p></p>
         <label>
           Price:
           <input
@@ -77,6 +80,7 @@ export default function AddProduct() {
             required
           />
         </label>
+        <p></p>
         <label>
           Image URL:
           <input
@@ -87,6 +91,7 @@ export default function AddProduct() {
             required
           />
         </label>
+        <p></p>
         <label>
           Category:
           <input
@@ -97,6 +102,7 @@ export default function AddProduct() {
             required
           />
         </label>
+        <p></p>
         <button type="submit">Add Product</button>
       </form>
     </div>

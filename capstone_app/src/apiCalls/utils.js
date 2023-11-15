@@ -84,6 +84,7 @@ const createProduct = async (productData) => {
     const response = await axios.post(`${BASE_URL}/products`, productData, {
       headers: {
         'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
       },
     });
 

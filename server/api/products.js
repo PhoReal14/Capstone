@@ -18,13 +18,13 @@ router.get('/', async (req, res, next) => {
 // POST /api/products/add
 router.post('/', requireUser, requiredNotSent({requiredParams: ['name', 'description', 'price', 'imgUrl', 'category']}), async (req, res, next) => {
   try {
-    const validCategories = ['tablet', 'phone', 'monitor', 'setup', 'headphones', 'charger']
+    const validCategories = ['tablet', 'phone', 'monitor', 'setup', 'headphones', 'charger'];
+    const { name, description, price, imgUrl, category } = req.body;
   if(!validCategories.includes(category)){
     const error = new Error('Category is invalid')
     next(error)
     return
   }
-    const {name, description, price, imgUrl, category} = req.body;
     const createdProduct = await createProduct({creatorId: req.user.id, name, description, price, imgUrl, category});
     if(createdProduct) {
       res.send(createdProduct);
@@ -43,14 +43,14 @@ router.post('/', requireUser, requiredNotSent({requiredParams: ['name', 'descrip
 router.patch('/:productId', requireUser, requiredNotSent({requiredParams: ['name', 'description', 'price', 'imgUrl', 'category'], atLeastOne: true}), async (req, res, next) => {
   try {
     const validCategories = ['tablet', 'phone', 'monitor', 'setup', 'headphones', 'charger']
+    const {name, description, price, imgUrl, category} = req.body;
+    const {productId} = req.params;
+    const productToUpdate = await getProductById(productId);
     if(!validCategories.includes(category)){
       const error = new Error('Category is invalid')
       next(error)
       return
     }
-    const {name, description, price, imgUrl, category} = req.body;
-    const {productId} = req.params;
-    const productToUpdate = await getProductById(productId);
     if(!productToUpdate) {
       next({
         name: 'NotFound',

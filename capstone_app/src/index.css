@@ -228,3 +228,23 @@ button:hover {
   color: aliceblue;
   font-size: 14pt;
 }
+input {
+  padding: 10px 10px 10px 10px;
+  outline: none;
+  border-radius: 5px 5px 5px 5px;
+  width: 250px;
+  border: none;
+  border: 1px solid #a6c2ce;
+  font-size: 14pt;
+  display: inline-block;
+}
+label {
+  padding: 10px 10px 10px 10px;
+  outline: none;
+  border-radius: 5px 5px 5px 5px;
+  width: 250px;
+  border: none;
+  font-size: 14pt;
+  display: inline-block;
+}
+
