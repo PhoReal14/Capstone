@@ -213,18 +213,11 @@ button:hover {
   font-size: 14pt;
 }
 #dark #search_box {
-  background: #8bb6d0;
+  background-color: #8bb6d0;
   color: #ffcc71;
 }
 #light #search_box {
-  background: #ba958f;
+  background-color: #ba958f;
   color: aliceblue;
 }
-#dark ::placeholder {
-  color: #ffcc71;
-  font-size: 14pt;
-}
-#light ::placeholder {
-  color: aliceblue;
-  font-size: 14pt;
-}
+
