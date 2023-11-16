@@ -64,7 +64,11 @@ const userInfo = async () => {
       return response
     }
   } catch(error) {
-    console.warn('Failed to get user\'s info:', error.message)
+    if(error.response && error.response.status === 500) {
+      console.info('User is not logged in')
+    } else {
+      console.warn('Failed to get user\'s info:', error.message)
+    }
   }
 }
 

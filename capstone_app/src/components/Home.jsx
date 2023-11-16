@@ -85,7 +85,10 @@ export default function Home({ isAuth, username, info }) {
           </>
         ): (
           <div>
-            <FontAwesomeIcon id='spin' icon={faSpinner} />
+            <br></br>
+            <a href='/login'>Click here to login to your account</a>
+            <br></br>
+            <a href='/register'>Click here to create an account</a>
           </div>
         )}
       </div>

@@ -203,30 +203,16 @@ button:hover {
   padding: 10px 10px;
 }
 #search_box {
-  padding: 10px 10px 10px 10px;
+  padding: 5px 5px 5px 5px;
   outline: none;
   border-radius: 5px 5px 5px 5px;
-  width: 250px;
+  width: 200px;
   border: none;
   border: 1px solid #a6c2ce;
   text-align: center;
   font-size: 14pt;
-}
-#dark #search_box {
-  background: #8bb6d0;
-  color: #ffcc71;
-}
-#light #search_box {
-  background: #ba958f;
-  color: aliceblue;
-}
-#dark ::placeholder {
-  color: #ffcc71;
-  font-size: 14pt;
-}
-#light ::placeholder {
-  color: aliceblue;
-  font-size: 14pt;
+  /* background-color: #c6cacd; */
+  color: #3b3a39;
 }
 input {
   padding: 10px 10px 10px 10px;
