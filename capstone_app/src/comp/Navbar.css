@@ -15,6 +15,7 @@
     display: flex;
     padding: 15px 15px;
     background: #f6f7f9;
+    height: 45px;
 }
 .header .top_header .icon
 {
@@ -31,15 +32,15 @@
 {
     display: flex;
     padding: 20px 40px;
+    height: 80px;
     max-width: 100%;
     justify-content: space-between ;
 }
 .header .mid_header .logo img
 {
-    height: 55px;
-    width: 175px;
-    cursor: pointer;
-    object-fit: cover;
+    height: 45px;
+    width: 250px !important;
+    /* object-fit: cover; */
 }
 .header .mid_header .search_box input
 {
@@ -76,11 +77,14 @@
 .header .mid_header .user
 {
     display: flex;
-    margin-right: 30px;
+    margin-right: 20px;
 }
 .header .mid_header .user .icon 
 {
-    margin-right: 10px;
+    margin-top: 10px;
+}
+.user .btn {
+    margin-top: -10px;
 }
 .header .mid_header .user .icon .btn button
 {
@@ -98,6 +102,7 @@
     background: #232323;
     justify-content: space-between;
     height: 4rem;
+    margin-top: -10px;
 }
 @media only screen and (max-width: 749px){
 	.header .last_header {
@@ -108,7 +113,10 @@
     }
     .header .mid_header .logo img {
         width: 150px;
-        margin-top: -10px;
+        margin-top: -16px;
+    }
+    .user .btn {
+        margin-top: -20px;
     }
 }
 @media only screen and (max-width: 670px){
@@ -119,7 +127,7 @@
 .header .last_header .user_profile
 {
     display: flex;
-    margin-top: 10px;
+    margin-top: 2px;
 
 }
 .header .last_header .user_profile .icon

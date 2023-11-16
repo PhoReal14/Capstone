@@ -64,7 +64,11 @@ const userInfo = async () => {
       return response
     }
   } catch(error) {
-    console.warn('Failed to get user\'s info:', error.message)
+    if(error.response && error.response.status === 500) {
+      console.info('User is not logged in')
+    } else {
+      console.warn('Failed to get user\'s info:', error.message)
+    }
   }
 }
 
@@ -84,6 +88,7 @@ const createProduct = async (productData) => {
     const response = await axios.post(`${BASE_URL}/products`, productData, {
       headers: {
         'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
       },
     });
 

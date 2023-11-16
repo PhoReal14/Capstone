@@ -53,12 +53,16 @@ function App() {
   const [allInfo, setAllInfo] = useState([])
   useEffect(() => {
     const getInfo = async () => {
-      const res = await userInfo()
-      if(res){
-        setInfo(res.data)
-        setAllInfo(res)
-      } else {
-        console.warn('Unable to get users info')
+      try{
+        const res = await userInfo()
+        if(res !== undefined) {
+          setInfo(res.data)
+          setAllInfo(res)
+        } else {
+          console.info('User isn\'t signed in')
+        }
+      } catch(error) {
+        console.warn('Unable to get users info', error.message)
       }
     }
     getInfo()
@@ -68,7 +72,7 @@ function App() {
     <ThemeContext.Provider value={{ theme, themeToggle}}>
       <div id={ theme } >
         <div id='navbar'>
-          <Navbar isAuth={isAuth} />
+          <Navbar isAuth={isAuth} info={info} />
         </div>
         <Routes>
           <Route path='/login' element={<Login />} />

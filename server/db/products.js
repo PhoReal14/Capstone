@@ -53,7 +53,7 @@ async function updateProduct({id, ...fields}){
     for(let column in fields) {
       if(fields[column] !== undefined) toUpdate[column] = fields[column];
     }
-    let activity;
+    let product;
     if (util.dbFields(toUpdate).insert.length > 0) {
       const {rows} = await client.query(`
         UPDATE products
@@ -61,9 +61,9 @@ async function updateProduct({id, ...fields}){
         WHERE id=${ id }
         RETURNING *;
       `, Object.values(toUpdate));
-      activity = rows[0];
+      product = rows[0];
     }
-    return activity;
+    return product;
   } catch (error) {
     throw error
   }

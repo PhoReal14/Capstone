@@ -93,7 +93,7 @@ const registerNewUser = async (data) => {
         </form>
       </div>
       <span>
-        <Link to='/'>Return to log in</Link>
+        <Link to='/login'>Return to log in</Link>
       </span>
       </div>
     </div>
