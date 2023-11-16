@@ -1,15 +1,21 @@
 import React from 'react';
 import {MdLocalShipping} from 'react-icons/md';
-import {AiOutlineSearch} from 'react-icons/ai';
 import {FiLogIn} from 'react-icons/fi';
 import {CiLogout, CiUser} from 'react-icons/ci';
-import { useAuth0 } from "@auth0/auth0-react";
 import {Link} from 'react-router-dom';
 import './Navbar.css';
+import { useState, useEffect } from 'react';
 
 
-const Navbar = ({ isAuth }) => {
-  const { loginWithRedirect, logout, user, isAuthenticated  } = useAuth0();
+const Navbar = ({ isAuth, info }) => {
+  const [data, setData] = useState([])
+  const username = sessionStorage.getItem('username')
+  useEffect(() => {
+    if(info.user){
+      setData(info.user)
+    } 
+  }, [])
+ 
   return(
     <>
     <div className='header'>
@@ -23,17 +29,17 @@ const Navbar = ({ isAuth }) => {
       </div>
       <div className='mid_header'>
         <div className='logo'>
-          <img src='images/logo.png' alt='logo'></img>
+          <img src='images/bytemarket.png' alt='logo'></img>
         </div>
         {
-          isAuthenticated ?
+          isAuth ?
           // if user is logged in then logout button
           <div className='user'>
           <div className='icon'>
             <CiLogout/>
           </div>
           <div className='btn'>
-          <button onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>LogOut</button>
+          <a href='/logout'><button>LogOut</button></a>
           </div>
         </div>
         :
@@ -43,7 +49,7 @@ const Navbar = ({ isAuth }) => {
           <FiLogIn/>
         </div>
         <div className='btn'>
-        <button onClick={() => loginWithRedirect()}>Log In</button>
+        <a href='/login'><button>Log In</button></a>
         </div>
       </div>
         }
@@ -52,16 +58,15 @@ const Navbar = ({ isAuth }) => {
         <div className='user_profile'>
           {
            //user profile is shown here 
-           isAuthenticated ?
+           isAuth ?
             <>
             <div className='icon'>
               <CiUser/>
             </div>
             <div className='info'>
-            <h2>{user.name}</h2>
-            <p>{user.email}</p>
+            <p>{username}</p>
+            <p>{data.email}</p>
             </div>
-          
             </>
             :
             <>
@@ -83,7 +88,7 @@ const Navbar = ({ isAuth }) => {
           </ul>
         </div>
         <div className='Offers'>
-          <p>No Offers At This Time</p>
+          <p>Code: cool</p>
         </div>
        </div>
        </div>
@@ -92,4 +97,3 @@ const Navbar = ({ isAuth }) => {
 }
 
 export default Navbar
-
