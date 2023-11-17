@@ -36,10 +36,12 @@ export default function AddProduct() {
         category: "",
       });
 
-      // Handle success (e.g., show a success message)
+      // Handle success
       console.log("Product added successfully!");
+      // Refresh the page
+      window.location.reload();
     } catch (error) {
-      // Handle errors (e.g., show an error message)
+      // Handle errors
       console.error("Error adding product:", error);
     }
   };

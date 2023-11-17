@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react"
-import { getAllProducts } from "../apiCalls/utils"
+import { getAllProducts, deleteProduct } from "../apiCalls/utils"
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import StarRating from "./StarRating"
 import { AiOutlineSearch } from "react-icons/ai"
 import AddProduct from "./AddProduct"
+import EditProduct from "./EditProduct"
 
 export default function Products() {
   const [products, setProducts] = useState([])
@@ -13,21 +14,24 @@ export default function Products() {
   const [electronics, setElectronics] = useState([])
   const [loading, setLoading] = useState(true)
   const [searchParams, setSearchParams]  = useState("");
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editedProduct, setEditedProduct] = useState(null);
 
-  useEffect(() => {
-    const getProducts = async () => {
-      try{
-        const response = await getAllProducts()
-        console.log('all products:', response)
-        if(response) {
-          setProducts(response)
-          setLoading(false)
-        }
-        
-      }catch(error){
-        console.warn('Error on front end:', error)
+  const getProducts = async () => {
+    try{
+      const response = await getAllProducts()
+      console.log('all products:', response)
+      if(response) {
+        setProducts(response)
+        setLoading(false)
       }
+      
+    }catch(error){
+      console.warn('Error on front end:', error)
     }
+  };
+  
+  useEffect(() => {
     if(products.length === 0) {
       getProducts()
     }
@@ -71,7 +75,31 @@ export default function Products() {
         return itemInfo.toLowerCase().includes(searchParams);
     })
   : products;
-  
+
+  const openEditModal = (product) => {
+    setEditedProduct(product);
+    setShowEditModal(true);
+  };
+
+  const closeEditModal = () => {
+    setEditedProduct(null);
+    setShowEditModal(false);
+  };
+
+  const handleDeleteProduct = async (productId) => {
+    try {
+      const response = await deleteProduct(productId);
+      if (response && response.success) {
+        toast.success('Product deleted successfully!');
+        getProducts(); // Refresh the product list after deletion
+      } else {
+        toast.error('Failed to delete product');
+      }
+    } catch (error) {
+      console.error('Failed to delete product:', error);
+      toast.error('Failed to delete product');
+    }
+  };
 
   return(
     <div  className='app'>
@@ -95,17 +123,34 @@ export default function Products() {
             <img id="product-img" src={item.imgurl}></img>
             <p><strong>Price:</strong> <span id="dollarSign">${item.price}</span></p>
             <button data-id='data-item-id' onClick={() =>
-              setToggleDetails(toggleDetails === item.id ? null : item.id)}>
-              {toggleDetails === item.id ? 'View Less' : 'View More'}
-              </button>
-            {toggleDetails === item.id ? (
+              setToggleDetails((prev) => (prev === item.id ? null : item.id))}>
+                {toggleDetails === item.id ? 'View Less' : 'View More'}
+            </button>
+              {toggleDetails === item.id ? (
               <>
                 <p><strong>Description:</strong>{item.description}</p>
                 <span>
                   <button onClick={addToCart}>Add to cart</button>
-                  <button>Edit Product</button>
-                  <button>Delete Product</button>
+                  <button onClick={() => openEditModal(item)}>Edit Product</button>
+                  <button onClick={() => handleDeleteProduct(item.id)}>Delete Product</button>
                 </span>
+              <div>
+              {showEditModal && (
+                <EditProduct
+                  product={editedProduct}
+                  onClose={closeEditModal}
+                  onUpdate={(updatedProductData) => {
+                    setProducts((prevProducts) =>
+                      prevProducts.map((product) =>
+                        product.id === updatedProductData.id
+                          ? updatedProductData
+                          : product
+                      )
+                    );
+                  }}
+                />
+              )}
+              </div>
               </>
             ):null}
           </div>

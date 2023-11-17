@@ -58,7 +58,7 @@ async function updateProduct({id, ...fields}){
       const {rows} = await client.query(`
         UPDATE products
         SET ${ util.dbFields(toUpdate).insert }
-        WHERE id=${ id }
+        WHERE id= $1
         RETURNING *;
       `, Object.values(toUpdate));
       activity = rows[0];
