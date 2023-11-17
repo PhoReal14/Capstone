@@ -80,8 +80,8 @@ button:hover {
 
 #switch {
   position: fixed;
-  top: .7rem;
-  right: 5rem;
+  top: .1rem;
+  right: 3rem;
   z-index: 3;
 }
 #dollarSign {
@@ -112,7 +112,7 @@ button:hover {
   overflow-y: auto;
 }
 #component {
-  margin-top: 15rem;
+  margin: 15rem .5rem;
 }
 #navbar {
   position: absolute;
